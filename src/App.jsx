@@ -1,33 +1,44 @@
+import React, { useState } from 'react';
+import Modal from './components/Madol';
 
-import React, { useState } from "react"; // SHART
-import { Counter } from "./components/Counter";
-import Interface from "./components/interface";
-import { Setp } from "./components/Setp";
-import Players from "./components/Players";
-import { Card } from "./components/card";
 const App = () => {
-  const [counters, setCounters] = useState([]); 
-  const [products , setProducts] = useState([
-    {id:1 , name:"MacBook", price:20000,quentitiy:3,sale:23, img:''},
-    {id:2 , name:"MacBook", price:20000,quentitiy:3,sale:23},
-    {id:3 , name:"MacBook", price:20000,quentitiy:3,sale:23},
-    {id:4 , name:"MacBook", price:20000,quentitiy:3,sale:23},
-    {id:5 , name:"MacBook", price:20000,quentitiy:3,sale:23},
-    {id:6 , name:"MacBook", price:20000,quentitiy:3,sale:23},
-  ])
+  const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const addProduct = (newProduct) => {
+    setProducts([...products, newProduct]);
+  };
   return (
-    <div className="zzz">
-      <Counter counters={counters} setCounters={setCounters} />
-      <Interface />
-      <Setp />
-      <Players />
-      <div className="d-flex flex-wrap justify-content-center">
-  {products.map((item) => (
-    <Card key={item.id} item={item} />
-  ))}
-</div>
+    <div>
+      <h1>My Products</h1>
+      <button onClick={() => setShowModal(true)}>Create Product</button>
+
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)} onCreate={addProduct} />
+      )}
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+        {products.map((p, index) => (
+          <div key={index} style={cardStyle}>
+            <img src={p.img || 'https://via.placeholder.com/150'} alt={p.name} width="150" />
+            <h3>{p.name}</h3>
+            <p>Price: ${p.price}</p>
+            <p>Quantity: {p.quantity}</p>
+            <p>Category: {p.category}</p>
+            <p>Sale: {p.sale}%</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
+};
+
+const cardStyle = {
+  border: '1px solid #ccc',
+  padding: '10px',
+  borderRadius: '10px',
+  width: '180px',
+  boxShadow: '2px 2px 10px rgba(0,0,0,0.1)'
 };
 
 export default App;
