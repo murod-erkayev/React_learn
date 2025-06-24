@@ -1,44 +1,70 @@
 import React, { useState } from 'react';
-import Modal from './components/Madol';
+import { ProdcutModal } from './components/Product/ProdcutModal';
+import { Card } from './components/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
 
-  const addProduct = (newProduct) => {
-    setProducts([...products, newProduct]);
+  const handleDelete = (id) => {
+    setProducts(products.filter((item) => item.id !== id));
   };
+
+  const handleUpdate = (product) => {
+    setEditingProduct(product);
+    setIsEdit(true);
+    setOpen(true);
+  };
+
   return (
-    <div>
-      <h1>My Products</h1>
-      <button onClick={() => setShowModal(true)}>Create Product</button>
+    <div className="flex justify-center items-center flex-col p-4">
+      <ProdcutModal
+        isOpen={open}
+        toggle={() => {
+          setOpen(false);
+          setEditingProduct(null);
+          setIsEdit(false);
+        }}
+        products={products}
+        setProducts={setProducts}
+        editingProduct={editingProduct}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        setEditingProduct={setEditingProduct}
+      />
 
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)} onCreate={addProduct} />
-      )}
+      <div className="row my-3 w-100">
+        <div className="col-md-3">
+          <button className="btn btn-success w-100" onClick={() => setOpen(true)}>
+            Open Modal
+          </button>
+        </div>
+        <div className="col-md-9">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
-        {products.map((p, index) => (
-          <div key={index} style={cardStyle}>
-            <img src={p.img || 'https://via.placeholder.com/150'} alt={p.name} width="150" />
-            <h3>{p.name}</h3>
-            <p>Price: ${p.price}</p>
-            <p>Quantity: {p.quantity}</p>
-            <p>Category: {p.category}</p>
-            <p>Sale: {p.sale}%</p>
-          </div>
-        ))}
+      <div className="row mt-3 w-100">
+        {products
+          .filter((item) => item.name?.toLowerCase().includes(search.toLowerCase()))
+          .map((item) => (
+            <div key={item.id} className="col-md-4 mb-3">
+              <Card item={item} onDelete={handleDelete} onUpdate={handleUpdate} />
+            </div>
+          ))}
       </div>
     </div>
   );
-};
-
-const cardStyle = {
-  border: '1px solid #ccc',
-  padding: '10px',
-  borderRadius: '10px',
-  width: '180px',
-  boxShadow: '2px 2px 10px rgba(0,0,0,0.1)'
 };
 
 export default App;

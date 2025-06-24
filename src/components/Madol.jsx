@@ -27,85 +27,97 @@ const Modal = ({ onClose, onCreate }) => {
   };
 
   return (
-    <div style={styles.overlay}>
-      <div style={styles.modal}>
-        <h2>Create New Product</h2>
-        <br />
-        {form.img && <img src={form.img} alt="preview" width="100" />}
-        <br />
-        <input
-          type="text"
-          name="name"
-          placeholder="Product Name"
-          value={form.name}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          type="text"
-          name="category"
-          placeholder="Product Category"
-          value={form.category}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          type="number"
-          name="sale"
-          placeholder="Product Sale (%)"
-          value={form.sale}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          type="number"
-          name="price"
-          placeholder="Product Price"
-          value={form.price}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          type="number"
-          name="quantity"
-          placeholder="Product Quantity"
-          value={form.quantity}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          type="text"
-          name="img"
-          placeholder="Image URL"
-          value={form.img}
-          onChange={handleChange}
-        />
-        <br />
-        <button onClick={handleCreate}>Create</button>
-        <button onClick={onClose}>Cancel</button>
+    // 👉 Overlay
+    <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+
+          <div className="modal-header">
+            <h5 className="modal-title">Create New Product</h5>
+            <button type="button" className="btn-close" onClick={onClose}></button>
+          </div>
+
+          <div className="modal-body">
+            {form.img && (
+              <div className="mb-3 text-center">
+                <img src={form.img} alt="preview" width="100" />
+              </div>
+            )}
+
+            <input
+              type="text"
+              name="name"
+              className="form-control mb-2"
+              placeholder="Product Name"
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="category"
+              className="form-control mb-2"
+              placeholder="Product Category"
+              value={form.category}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="number"
+              name="sale"
+              className="form-control mb-2"
+              placeholder="Product Sale (%)"
+              value={form.sale}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="number"
+              name="price"
+              className="form-control mb-2"
+              placeholder="Product Price"
+              value={form.price}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="number"
+              name="quantity"
+              className="form-control mb-2"
+              placeholder="Product Quantity"
+              value={form.quantity}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="img"
+              className="form-control mb-2"
+              placeholder="Image URL"
+              value={form.img}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="modal-footer">
+            <button type="button" className="btn btn-primary" onClick={handleCreate}>
+              Create
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
   );
-};
-
-const styles = {
-  overlay: {
-    position: 'fixed',
-    top: 0, left: 0,
-    width: '100vw',
-    height: '100vh',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 9999
-  },
-  modal: {
-    background: '#fff',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 0 10px rgba(0,0,0,0.3)'
-  }
 };
 
 export default Modal;
