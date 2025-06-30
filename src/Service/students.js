@@ -8,7 +8,7 @@ export const Users = {
     } catch (error) {
       console.log(error);
     }
-  },
+  },  
 
   async createUser(model) {
     try {

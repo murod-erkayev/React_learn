@@ -4,4 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: [
+      { find: "@", replacement: "/src/*" },
+      { find: "@pages", replacement: "/src/pages" },
+      { find: "@componentes", replacement: "/src/componentes" },
+    ],
+  },
 });

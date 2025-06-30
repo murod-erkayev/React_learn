@@ -2,6 +2,7 @@ import { IoDiamond } from "react-icons/io5";
 import { AiOutlineRise } from "react-icons/ai";
 const HomePage = () => {
     return (
+      
       <div className="home-page">
         <div>
         <div className="flex justify-start items-start  text-3xl gap-2">

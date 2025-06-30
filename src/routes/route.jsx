@@ -1,24 +1,33 @@
 import { Routes, Route } from 'react-router-dom';
-import HomePage from '../pages/Home';
-import PaymentsPage from '../pages/Payments';
-import GroupPage  from "../pages/Groups"
-import RaitngsPage  from "../pages/Ratings"
-import BookMarksPage  from "../pages/Bookmarks"
-import ShopPage  from "../pages/Shop"
-import ExtraLessonPage  from "../pages/Extra-lesson"
-import SettingsPage  from "../pages/Setting"
+import { lazy, Suspense } from 'react';
+import { LogIn } from '../auth/LogIn';
+
+const HomePage = lazy(() => import('../pages/Home'));
+const PaymentsPage = lazy(() => import('../pages/Payments'));
+const GroupPage = lazy(() => import("../pages/Groups"));
+const RatingsPage = lazy(() => import("../pages/Ratings"));
+const BookmarksPage = lazy(() => import("../pages/Bookmarks"));
+const ShopPage = lazy(() => import("../pages/Shop"));
+const ExtraLessonPage = lazy(() => import("../pages/Extra-lesson"));
+const SettingsPage = lazy(() => import("../pages/Setting"));
+const RegisterForm = lazy(() => import('../auth/Register'));
+
 const AppRoutes = () => {
   return (
-    <Routes>
-      <Route path="/menu" element={<HomePage/>} />
-      <Route path="/payments" element={<PaymentsPage />} />
-      <Route path="/groups" element={< GroupPage/>} />
-      <Route path="/rating" element={<RaitngsPage />} />
-      <Route path="/bookmarks" element={<BookMarksPage />} />
-      <Route path="/shop" element={<ShopPage />} />
-      <Route path="/extra-lessons" element={<ExtraLessonPage />} />
-      <Route path="/settings" element={<SettingsPage />} />
-    </Routes>
+    // <Suspense fallback={<div>Yuklanmoqda...</div>}>
+      <Routes>
+        <Route path="/menu" element={<HomePage />} />
+        {/* <Route path="/login" element={<LogIn />} /> */}
+        <Route path="/payments" element={<PaymentsPage />} />
+        <Route path="/groups" element={<GroupPage />} />
+        <Route path="/rating" element={<RatingsPage />} />
+        <Route path="/bookmarks" element={<BookmarksPage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/extra-lessons" element={<ExtraLessonPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/register" element={<RegisterForm />} />
+      </Routes>
+    // </Suspense>
   );
 };
 

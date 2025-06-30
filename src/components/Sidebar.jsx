@@ -24,7 +24,6 @@ const Sidebar = () => {
   );
 };
 
-// 🔁 Reusable component
 const SidebarItem = ({ icon, to, label }) => (
   <div className="text-2xl flex items-center gap-3 p-2 hover:bg-amber-100 rounded-md transition">
     {icon}
